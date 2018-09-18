@@ -26,18 +26,26 @@ let loadAPI = function(p) {
         charactersNode.appendChild(characterName);
 
         //get character films
-        item.films;
+        item.films.forEach(film  =>{
+          fetch(film)
+          .then(response => response.json())
+          .then(filmTitle => {
+
+            const characterFilm = document.createElement("p");
+            characterFilm.innerHTML = `${filmTitle.title}`;
+            characterName.appendChild(characterFilm);
+          })
+
+        });
+
 
         //fetch film APIs
 
         //fetch film titles
 
         //push title into parent character name
-        const characterFilm = document.createElement("p");
-        characterFilm.innerHTML = `${item.films}`;
-        characterName.appendChild(characterFilm);
       });
-      console.log(charactersCount);
+
       //generate buttons
       if (i === 0) {
         count(charactersCount);
@@ -59,12 +67,12 @@ function count(charactersCount) {
     const button = document.createElement("button");
     button.innerHTML = `${p}`;
     buttonsNode.appendChild(button);
-    console.log(charactersCount);
+
   }
 }
 //listen to buttons; change p value
 buttonsNode.addEventListener("click", function(event) {
   p = event.target.textContent;
-  console.log(p);
+
   loadAPI(p);
 });
